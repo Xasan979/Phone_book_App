@@ -1,6 +1,7 @@
 # Phone_book_App
 Подробно описанный функционал программы:
-   https://disk.yandex.ru/i/KfCDSTRPQRurNw
+  
+    https://disk.yandex.ru/i/KfCDSTRPQRurNw
 
 Откройте командную строку (или терминал, если вы используете Linux/Mac).
 С помощью команды cd, перейдите в директорию, содержащую файл phonebook.py. 
