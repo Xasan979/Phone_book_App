@@ -6,18 +6,18 @@ class PhoneBookApp:
         self.data = self.load_data('data.json')
         self.entries = self.data['Guide']
 
-    def save_data(self, data, filename):
+    def save_data(self, data, filename):  # сохраняет переданные данные в формате JSON в указанный файл
         with open(filename, 'w', encoding='utf-8') as file:
             json.dump(data, file, ensure_ascii=False, indent=4)
 
-    def load_data(self, filename):
+    def load_data(self, filename):  # загружает данные из указанного JSON-файла
         try:
             with open(filename, 'r', encoding='utf-8') as file:
                 return json.load(file)
         except FileNotFoundError:
             return {"Guide": {}}
 
-    def add_entry(self, input_function=input):
+    def add_entry(self, input_function=input):  # добавляет новую запись в телефонную книгу
         new_entry = {}
         new_entry['фамилия'] = input_function("Введите фамилию: ")
         new_entry['имя'] = input_function("Введите имя: ")
@@ -30,9 +30,7 @@ class PhoneBookApp:
         self.entries[next_index] = new_entry
         self.save_data(self.data, 'data.json')
 
-
-
-    def list_entries(self):
+    def list_entries(self):  # выводит на экран список всех записей
         entries = self.entries
         if not entries:
             print("Справочник пуст.")
@@ -47,7 +45,7 @@ class PhoneBookApp:
             print(f"  Телефон личный: {entry['телефон личный']}")
             print("-" * 30)
 
-    def edit_entry(self):
+    def edit_entry(self):  # позволяет пользователю выбрать запись и изменить её данные
         self.list_entries()
         entry_number = input("Введите номер записи, которую хотите отредактировать: ")
 
@@ -65,7 +63,7 @@ class PhoneBookApp:
         else:
             print("Некорректный номер записи.")
 
-    def search_entries(self, search_query1, search_query2=None):
+    def search_entries(self, search_query1, search_query2=None):  # поиск записей в телефонной книге
         results = {}
         for index, entry in self.entries.items():
             if search_query2:
@@ -79,7 +77,7 @@ class PhoneBookApp:
                     results[index] = entry
         return results
 
-    def main(self):
+    def main(self):  # меню
         while True:
             print("\nМеню:")
             print("1. Вывести записи")
