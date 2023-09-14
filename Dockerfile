@@ -4,7 +4,11 @@ WORKDIR /app
 
 COPY phonebook.py .
 COPY data.json .
+COPY import_data.py .
+COPY requirements.txt .
 
-# RUN pip install ..... # если нужно установить зависимости
+# Установите зависимости из файла requirements.txt
+RUN pip install -r requirements.txt
 
 CMD ["python", "phonebook.py"]
+

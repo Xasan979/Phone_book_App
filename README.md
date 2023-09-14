@@ -11,9 +11,17 @@
 
     python phonebook.py
 
-## Запуск файла через Dockerfile
-С помощью команды cd, перейдите в директорию, содержащую файл phonebook.py.
+## Запуск файла через Dockerfile.
+С помощью команды cd, перейдите в директорию, содержащую файл phonebook.py
     
     docker build -t phonebook-app .
 
     docker run -it phonebook-app
+
+## Запуск файла через docker-compose. 
+### Импорт данных из JSON файла в базу данных MySQL
+С помощью команды cd, перейдите в директорию, содержащую файл phonebook.py
+
+     docker-compose up --build
+
+Теперь можно перейти на http://localhost:8080 , для удобной работы с данными в БД

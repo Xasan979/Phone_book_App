@@ -1,0 +1,35 @@
+version: '3.1'
+
+services:
+  phonebook-app:
+    build:
+      context: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./phonebook.py:/app/phonebook.py
+      - ./data.json:/app/data.json
+      - ./import_data.py:/app/import_data.py
+    depends_on:
+      - mysql
+    command: ["python", "import_data.py"]
+
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345678
+      MYSQL_DATABASE: phonebook_db
+      MYSQL_USER: phonebook_user
+      MYSQL_PASSWORD: 12345678
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: phonebook_user
+      PMA_PASSWORD: 12345678
+
+
+
