@@ -1,35 +1,40 @@
-version: '3.1'
+version: '3.1'  # Версия Docker Compose, используемая в этом файле
 
-services:
+services:  # Определяем сервисы (контейнеры), которые будут запущены
   phonebook-app:
     build:
-      context: .
+      context: .  # Контекст сборки - текущий каталог (где находится этот файл)
+    container_name: phonebook-app-container  # Задаем собственное имя контейнера
     ports:
-      - "8000:8000"
+      - "8000:8000"  # Пробрасываем порты контейнера на хост-систему
     volumes:
-      - ./phonebook.py:/app/phonebook.py
+      - ./phonebook.py:/app/phonebook.py  # Монтируем файлы или директории в контейнер
       - ./data.json:/app/data.json
       - ./import_data.py:/app/import_data.py
     depends_on:
-      - mysql
-    command: ["python", "import_data.py"]
+      - mysql  # Указываем, от чего зависит этот контейнер
+    command: ["python", "import_data.py"]  # Команда, выполняемая при запуске контейнера
 
   mysql:
-    image: mysql:latest
+    image: mysql:latest  # Используем образ MySQL
+    container_name: mysql-container  # Задаем собственное имя контейнера
     environment:
-      MYSQL_ROOT_PASSWORD: 12345678
+      MYSQL_ROOT_PASSWORD: 12345678  # Переменные окружения для настройки MySQL
       MYSQL_DATABASE: phonebook_db
       MYSQL_USER: phonebook_user
       MYSQL_PASSWORD: 12345678
+    volumes:
+      - mysql-data:/var/lib/mysql  # Создаем том для данных MySQL
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
+    image: phpmyadmin/phpmyadmin:latest  # Используем образ phpMyAdmin
+    container_name: phpmyadmin-container  # Задаем собственное имя контейнера
     ports:
-      - "8080:80"
+      - "8080:80"  # Пробрасываем порты контейнера на хост-систему
     environment:
-      PMA_HOST: mysql
+      PMA_HOST: mysql  # Переменные окружения для настройки phpMyAdmin
       PMA_USER: phonebook_user
       PMA_PASSWORD: 12345678
 
-
-
+volumes:
+  mysql-data:  # Определяем том для данных MySQL

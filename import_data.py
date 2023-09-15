@@ -1,5 +1,5 @@
-import json
 import pymysql
+import json
 import time
 
 def wait_for_mysql(host, user, password, max_attempts=60):
